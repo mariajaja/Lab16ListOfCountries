@@ -1,6 +1,6 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -19,25 +19,11 @@ import java.util.List;
 
 public class CountriesTextFile {
 
-	private static Path filePath = Paths.get("countries.txt");
-
-	public static void main(String[] args) throws IOException {
-
-		// create a directory, if not created already
-		Path dirPath = Paths.get("countries");
-		if (Files.notExists(dirPath)) {
-			Files.createDirectories(dirPath);
-		}
-
-		// create file if it's not created already
-		if (Files.notExists(filePath)) {
-			Files.createFile(filePath);
-		}
-	}
+	private static Path filePath = Paths.get("src/countries.txt");
 
 	// displays list of file
 	public static List<Country> readFile(Path filePath) {
-		List<Country> countries = null;
+		List<Country> countries = new ArrayList<>();
 		// ** Example of reading a file into a list
 		try {
 			// reads each line back as a a single string
@@ -48,7 +34,7 @@ public class CountriesTextFile {
 				countries.add(country);
 			}
 			return countries;
-		} catch (FileNotFoundException ex) {
+		} catch (NoSuchFileException ex) {
 			return new ArrayList<>();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -60,9 +46,9 @@ public class CountriesTextFile {
 	// new item instance
 	public static Country convertLineToItem(String line) {
 		String[] parts = line.split(", ");
-		Country country = new Country();
-		country.setCountryName(parts[0]);
-		country.setPopulation(Integer.parseInt(parts[1]));
+		String countryName = parts[0];
+		int population = Integer.parseInt(parts[1]);
+		Country country = new Country(countryName, population);
 		return country;
 	}
 

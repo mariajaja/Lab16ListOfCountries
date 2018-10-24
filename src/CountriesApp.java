@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -16,10 +17,10 @@ public class CountriesApp {
 	/**
 	 * @param args
 	 */
-	private static Path filePath = Paths.get("countries.txt");
+	private static Path filePath = Paths.get("src/countries.txt");
+	private static Scanner userInput = new Scanner(System.in);
 
-	public static void main(String[] args) {
-		Scanner userInput = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 
 		System.out.println("Welcome to the Countries Maintenance Application!\n");
 
@@ -39,7 +40,8 @@ public class CountriesApp {
 			// show user a list of countries
 			System.out.println(countries);
 		} else if (menuChoice == 2) {
-			// allow user to add a country
+			userInput.nextLine();
+			userAddCountry();
 		} else if (menuChoice == 3) {
 			// allow user to exit
 		}
@@ -62,5 +64,19 @@ public class CountriesApp {
 	// TODO write method to ask user about what country and population they'd like
 	// to add; convert the "country" into a single "item" to append (use loop for
 	// multiple additions
+	public static void userAddCountry() throws IOException {
+
+		System.out.print("What's the name of the country you'd like to add? ");
+		String userCountry = userInput.nextLine();
+
+		// TODO add check for valid input (i.e. no commas, just ints)
+		System.out.print("What's the population of the country? ");
+		int countryPopulation = userInput.nextInt();
+
+		// convert int into string for storage
+		String item = userCountry + ", " + countryPopulation;
+
+		CountriesTextFile.appendToFile(item, filePath);
+	}
 
 }
