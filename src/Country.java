@@ -37,7 +37,7 @@ public class Country {
 
 	@Override
 	public String toString() {
-		return String.format("Country: %-25s Population: %15d\n", getCountryName(), getPopulation());
+		return String.format("Country: %-20s Population: %15d", getCountryName(), getPopulation());
 	}
 
 }
