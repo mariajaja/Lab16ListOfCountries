@@ -42,6 +42,26 @@ public class CountriesTextFile {
 		}
 	}
 
+	public static void removeLineInFile(Path filePath, String userRemove) throws IOException {
+		// reads each line as single string and adds to the list
+		List<String> items = Files.readAllLines(filePath);
+
+		// allows user to remove not matter the case
+		userRemove = userRemove.toLowerCase();
+
+		// delete all the old files to recreate list without the deletion
+		Files.write(filePath, items, StandardOpenOption.TRUNCATE_EXISTING);
+
+		for (String item : items) {
+			// filters out the country name and adds in all other countries
+			if (!item.contains(userRemove)) {
+				// adds all items other than the one the user requested
+				appendToFile(item, filePath);
+			}
+		}
+
+	}
+
 	// Modify this method as necessary to convert a line of text from the file to a
 	// new item instance
 	public static Country convertLineToItem(String line) {

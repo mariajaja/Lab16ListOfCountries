@@ -2,4 +2,3 @@ India, 1324171354
 The United States, 325719178
 China, 1403500365
 Rwanda, 11901484
-Bosnia, 3500000
