@@ -33,8 +33,14 @@ public class CountriesApp {
 			System.out.println("  3. Remove a country");
 			System.out.println("  4. Exit");
 
-			System.out.print("\nEnter menu number: ");
-			int menuChoice = userInput.nextInt();
+			int menuChoice;
+
+			do {
+				menuChoice = Validator.verifyInt(userInput, "\nEnter menu number: ");
+				if (menuChoice > 5 && menuChoice <= 0) {
+					System.out.println("Not a valid menu choice. Try again.");
+				}
+			} while (menuChoice > 5 && menuChoice <= 0);
 
 			switch (menuChoice) {
 			case 1:
@@ -62,24 +68,6 @@ public class CountriesApp {
 				break;
 			}
 
-//			if (menuChoice == 1) {
-//				List<Country> countries = CountriesTextFile.readFile(filePath);
-//				// TODO do a String.format to make pretty
-//				// show user a list of countries
-//				System.out.println(countries);
-//				isValid = false;
-//			} else if (menuChoice == 2) {
-//				userInput.nextLine();
-//				userAddCountry();
-//				isValid = false;
-//			} else if (menuChoice == 3) {
-//				userInput.nextLine();
-//				userRemoveCountry();
-//				isValid = false;
-//			} else if (menuChoice == 4) {
-//				// allow user to exit
-//				isValid = true;
-//			}
 			System.out.print("What would you like to do next? \n");
 			System.out.println();
 
